@@ -1,0 +1,26 @@
+{
+	"name": "ds_inc_input",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_inc_input",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "date",
+				"type": "date"
+			},
+			{
+				"name": "amount",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "incrementinputdata"
+		}
+	}
+}

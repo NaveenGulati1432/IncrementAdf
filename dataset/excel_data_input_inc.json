@@ -1,0 +1,23 @@
+{
+	"name": "excel_data_input_inc",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Increment_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "excelfile.csv",
+				"container": "incrementalinputdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

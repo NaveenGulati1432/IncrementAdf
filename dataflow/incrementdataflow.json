@@ -10,23 +10,89 @@
 						"type": "DatasetReference"
 					},
 					"name": "dfinputsource"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_inc_input",
+						"type": "DatasetReference"
+					},
+					"name": "sqlsource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_inc_input",
+						"type": "DatasetReference"
+					},
+					"name": "sqlinputwithmxdate"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_inc_input",
+						"type": "DatasetReference"
+					},
+					"name": "sqlinput"
+				}
+			],
 			"transformations": [
 				{
-					"name": "derivedColumn1"
+					"name": "window1"
+				},
+				{
+					"name": "currentdate"
 				}
 			],
 			"scriptLines": [
 				"source(output(",
-				"          Column_1 as string,",
-				"          Column_2 as string",
+				"          date as date,",
+				"          amount as short",
 				"     ),",
 				"     allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     ignoreNoFilesFound: false,",
+				"     enableCdc: true,",
+				"     mode: 'read',",
+				"     skipInitialLoad: true) ~> dfinputsource",
+				"source(output(",
+				"          date as date,",
+				"          amount as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> sqlsource",
+				"dfinputsource window(mx_date = max(date),",
+				"     partitionBy('hash', 1)) ~> window1",
+				"window1 derive(currentdate = currentDate('yyyy-MM-dd')) ~> currentdate",
+				"currentdate sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> dfinputsource",
-				"dfinputsource derive() ~> derivedColumn1"
+				"     input(",
+				"          date as date,",
+				"          amount as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sqlinputwithmxdate",
+				"sqlsource sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          date as date,",
+				"          amount as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sqlinput"
 			]
 		}
 	}
