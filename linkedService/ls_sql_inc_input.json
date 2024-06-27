@@ -5,13 +5,8 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"server": "incserver.database.windows.net",
-			"database": "incdb",
-			"encrypt": "mandatory",
-			"trustServerCertificate": false,
-			"authenticationType": "SQL",
-			"userName": "incadmin",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEFEMTkwRkFELTFEMjAtNDFDQy05QjcxLTBDQzExNDYwNEZGNV85ZGI3ZDc2Yi02MDE4LTRmZDctYmM2Mi0zODAzNDc1OTc4M2UiDQp9"
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=incserver.database.windows.net;initial catalog=incdb;user id=incadmin",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEFEMTkwRkFELTFEMjAtNDFDQy05QjcxLTBDQzExNDYwNEZGNV9kYjQ5ZjRjMy1jYTYwLTRkYTktYWYxMC1iNDYyNjVkZGE5ZmIiDQp9"
 		}
 	}
 }
