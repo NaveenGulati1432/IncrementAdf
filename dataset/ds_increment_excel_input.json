@@ -1,0 +1,27 @@
+{
+	"name": "ds_increment_excel_input",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Increment_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "AZ_INC",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "AZ_INC.xlsx",
+				"container": "incrementalinputdata"
+			}
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}
